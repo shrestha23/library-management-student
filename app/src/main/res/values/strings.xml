@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">LibraryManagementStudent</string>
+    <string name="title">Welcome to the \nAndroid Based \nLibrary Management System</string>
+    <string name="enter_library_id_here">Enter Library ID Here</string>
+    <string name="title_activity_search">SearchActivity</string>
+    <string name="enter_isbn_here">Enter ISBN Here</string>
+    <string name="dev_text">Public Beta</string>
+    <string name="tick_button_alt">tick_button</string>
+
 </resources>

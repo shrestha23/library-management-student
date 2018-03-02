@@ -1,18 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context="shrestha.shaw.librarymanagementstudent.MainActivity">
 
     <TextView
+        android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:layout_marginTop="85sp"
+        android:fontFamily="@font/roboto_black"
+        android:padding="16dp"
+        android:text="@string/title"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="26sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/developer_version_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="250dp"
+        android:gravity="center"
+        android:text="@string/dev_text"
+        android:textSize="15sp" />
+
+    <EditText
+        android:id="@+id/library_id_field"
+        android:layout_width="260dp"
+        android:layout_height="45dp"
+        android:layout_below="@id/developer_version_text"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="150dp"
+        android:background="@drawable/library_id_field_background"
+        android:hint="@string/enter_library_id_here"
+        android:paddingStart="16dp"
+        android:paddingEnd="8dp"/>
+
+    <ImageButton
+        android:id="@+id/search_btn"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignBottom="@+id/library_id_field"
+        android:layout_marginStart="16dp"
+        android:layout_toEndOf="@+id/library_id_field"
+        android:background="@mipmap/circle_tick_button"
+        android:contentDescription="@string/tick_button_alt" />
+</RelativeLayout>
