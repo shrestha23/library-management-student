@@ -35,10 +35,10 @@
         android:layout_below="@id/developer_version_text1"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="60dp"
+        android:inputType="number"
         android:background="@drawable/library_id_field_background"
         android:hint="@string/enter_isbn_here"
         android:paddingStart="30dp"
-
         android:textSize="20sp" />
 
     <ImageButton
