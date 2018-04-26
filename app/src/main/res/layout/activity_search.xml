@@ -21,9 +21,9 @@
         android:id="@+id/developer_version_text1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="200dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="176dp"
         android:gravity="center"
         android:text="Public Beta"
         android:textSize="20dp" />
@@ -31,7 +31,7 @@
     <EditText
         android:id="@+id/search_isbn"
         android:layout_width="260dp"
-        android:layout_height="50dp"
+        android:layout_height="52dp"
         android:layout_below="@id/developer_version_text1"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="60dp"
@@ -50,5 +50,28 @@
         android:layout_toEndOf="@id/search_isbn"
         android:background="@mipmap/search_buton"
         android:contentDescription="search_button_alt" />
+
+    <Button
+        android:id="@+id/rented_books"
+        android:layout_width="154dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="157dp"
+        android:layout_marginStart="13dp"
+        android:background="@drawable/library_id_field_background"
+        android:text="@string/rented_books_field"
+        android:textSize="16dp" />
+
+    <Button
+        android:id="@+id/requested_books"
+        android:layout_width="159dp"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/rented_books"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/library_id_field_background"
+        android:text="@string/requested_books_field"
+        android:textSize="16dp" />
 
 </RelativeLayout>

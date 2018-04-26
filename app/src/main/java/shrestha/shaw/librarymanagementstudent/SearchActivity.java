@@ -3,7 +3,9 @@ package shrestha.shaw.librarymanagementstudent;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -21,6 +23,7 @@ public class SearchActivity extends AppCompatActivity {
     EditText isbnField;
     TextView developer_version_text;
     private DatabaseReference bookSearch;
+    Button rented_books , requested_books;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +31,8 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
         isbnField = findViewById(R.id.search_isbn);
         searchBook = findViewById(R.id.search_book_by_isbn);
+       rented_books =findViewById(R.id.rented_books);
+       requested_books = findViewById(R.id.requested_books);
         bookSearch = FirebaseDatabase.getInstance().getReference("Books");
         developer_version_text = findViewById(R.id.developer_version_text1);
         librarianId = getIntent().getStringExtra("librarianId");
@@ -39,7 +44,7 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        searchBook.setOnClickListener(new View.OnClickListener() {
+       searchBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 bookIsbn = isbnField.getText().toString();
@@ -69,5 +74,22 @@ public class SearchActivity extends AppCompatActivity {
                 }
             }
         });
+         /*rented_books.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 Intent intent = new Intent(SearchActivity.this ,RentedBookActivity.class);
+                 intent.putExtra("studentid",librarianId);
+                 startActivity(intent);
+             }
+         });*/
+
+       /* requested_books.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SearchActivity.this ,RequestedBookActivity.class);
+                intent.putExtra("studentid",librarianId);
+                startActivity(intent);
+            }
+        });*/
     }
 }
