@@ -4,23 +4,30 @@ import android.content.Intent;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+import java.util.Iterator;
+
 public class MainActivity extends AppCompatActivity {
-    EditText librarianIdField;
+    EditText search;
     ImageButton submitButton;
-    private DatabaseReference studentRef;
-    private String studentId;
+    private DatabaseReference bookref , titleref;
+    private String searchedBook;
+    TextView loginLink;
+    FirebaseAuth auth;
 
 
     @Override
@@ -28,9 +35,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         submitButton = findViewById(R.id.search_btn);
-        librarianIdField = findViewById(R.id.library_id_field);
-        studentRef = FirebaseDatabase.getInstance().getReference("Students");
+        search  = findViewById(R.id.searchid_field);
+        loginLink = findViewById(R.id.loginlink);
+        bookref  = FirebaseDatabase.getInstance().getReference("Books");
+        titleref = FirebaseDatabase.getInstance().getReference("Title");
 
+        auth = FirebaseAuth.getInstance();
+        if (auth.getCurrentUser() != null) {
+            startActivity(new Intent(MainActivity.this, StudentActivity.class));
+            finish();
+        }
     }
 
     @Override
@@ -39,20 +53,38 @@ public class MainActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                studentId = librarianIdField.getText().toString();
-                if(studentId.isEmpty()){
-                    Toast.makeText(MainActivity.this, "EMPTY LIBRARY ID FIELD", Toast.LENGTH_SHORT).show();
+                searchedBook = search.getText().toString();
+                if(searchedBook.isEmpty()){
+                    Toast.makeText(MainActivity.this, "EMPTY SEARCHED FIELD", Toast.LENGTH_SHORT).show();
                 }
-                if(!studentId.isEmpty()){
-                    studentRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                if(!searchedBook.isEmpty()){
+                    bookref.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            if(dataSnapshot.hasChild(studentId)){
-                                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
-                                intent.putExtra("librarianId", studentId);
-                                startActivity(intent);
-                            }else {
-                                Toast.makeText(MainActivity.this, "INVALID LIBRARY ID", Toast.LENGTH_SHORT).show();
+                            if(dataSnapshot.hasChild(searchedBook) ){
+                                Intent intent1 = new Intent(MainActivity.this, BookDetailsActivity.class);
+                                intent1.putExtra("book", searchedBook);
+                                startActivity(intent1);
+                            } else if (!searchedBook.isEmpty()){
+                                titleref.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        if (dataSnapshot.hasChild(searchedBook)){
+                                            Intent intent1 = new Intent(MainActivity.this, BookDetailsActivity.class);
+                                            intent1.putExtra("book", searchedBook);
+                                            startActivity(intent1);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+
+                            }
+                            else {
+                                Toast.makeText(MainActivity.this, "THIS BOOK IS NOT AVAILABLE", Toast.LENGTH_SHORT).show();
                             }
                         }
 
@@ -63,6 +95,14 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
                 }
+            }
+        });
+
+        loginLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity( new Intent( MainActivity.this , SignInActivity.class));
             }
         });
 

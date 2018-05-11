@@ -26,10 +26,10 @@
             android:id="@+id/book_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="40sp"
-            android:layout_marginStart="40sp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="40sp"
-            android:background="#605da2ba"
+            android:background="@android:color/transparent"
             android:hint="Book Name"
             android:paddingStart="16sp"
             android:textSize="20sp"
@@ -40,39 +40,46 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="40sp"
-            android:layout_marginStart="40sp"
-            android:layout_marginTop="40sp"
-            android:background="#605da2ba"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@android:color/transparent"
             android:hint="Book Author"
+            android:textColor="@android:color/darker_gray"
+            android:textAppearance="@style/TextAppearance.AppCompat"
             android:paddingStart="16sp"
             android:textSize="18sp" />
+
+
 
         <TextView
             android:id="@+id/book_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="40sp"
-            android:layout_marginStart="40sp"
-            android:layout_marginTop="40sp"
-            android:background="#605da2ba"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/book_description_background"
             android:hint="Book Description"
-            android:paddingStart="16sp"
+            android:paddingStart="20dp"
+            android:paddingEnd="16dp"
             android:textSize="17sp"
 
+android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textStyle="italic" />
 
         <TextView
             android:id="@+id/book_copies"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="40sp"
-            android:layout_marginEnd="40sp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginEnd="40dp"
             android:layout_marginStart="20sp"
-            android:layout_marginTop="40sp"
+            android:layout_marginTop="20dp"
             android:gravity="center"
             android:hint="Copies"
-            android:textColor="#90f48341"
-            android:textSize="20sp" />
+            android:textColor="#99f48341"
+            android:textStyle="bold"
+            android:textSize="24sp" />
 
 
         <Button
@@ -83,6 +90,10 @@
             android:layout_marginStart="50dp"
             android:background="@drawable/library_id_field_background"
             android:text="REQUEST BOOK"
-            android:textSize="16sp" />
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginBottom="50dp"/>
+
+
     </LinearLayout>
 </ScrollView>
