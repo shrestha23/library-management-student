@@ -3,7 +3,7 @@
     <string name="title">Welcome to the \nAndroid Based \nLibrary Management System</string>
     <string name="enter_library_id_here">Enter Library ID Here</string>
     <string name="title_activity_search">SearchActivity</string>
-    <string name="enter_isbn_here"> \u0020 Enter Book Name  \n \u0020 OR \u0020  ISBN Here</string>
+    <string name="enter_isbn_here"> \u0020 Enter  ISBN Here</string>
     <string name="dev_text">Public Beta</string>
     <string name="tick_button_alt">tick_button</string>
     <string name="requested_books_field"> REQUESTED BOOKS</string>
@@ -16,5 +16,13 @@
     <string name="more_information_click_here_to_login"><u>More Information? Click Here To Login</u></string>
     <string name="enter_book_name_or_isbn_here">Enter Book Name OR ISBN Here</string>
     <string name="enter_book_name">\u0020 Enter Book Name \u0020 OR \n \u0020 \u0020 \u0020 \u0020\u0020\u0020\u0020\u0020ISBN Here</string>
+    <string name="name_hint">John Doe</string>
+    <string name="accesslevel_hint">Department</string>
+    <string name="id_hint">id</string>
+    <string name="click_here_to_sign_out">Click Here!! To Sign Out</string>
+    <string name="rented_books">RENTED BOOKS</string>
+    <string name="search_tick"><![CDATA[>>]]></string>
+    <string name="user_profile">USER PROFILE</string>
+    <string name="enter_isbn_here_stu">Enter ISBN Here</string>
 
 </resources>

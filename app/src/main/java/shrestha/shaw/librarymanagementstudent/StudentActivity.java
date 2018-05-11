@@ -1,19 +1,14 @@
 package shrestha.shaw.librarymanagementstudent;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -25,66 +20,61 @@ import com.google.firebase.database.ValueEventListener;
 public class StudentActivity extends AppCompatActivity {
 
     EditText searchBar;
-TextView  name1 , department , signOut;
-ImageButton submitButton;
-Button rentBtn , requestBtn;
+TextView studentname , department ;
+    TextView  stuId ,   signOut;
+Button submitButton;
+Button rentBtn;
 String search;
 DatabaseReference ref;
 FirebaseAuth auth;
-FirebaseUser user;
+FirebaseUser firebaseUser;
+String sid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student);
 
+
         searchBar = findViewById(R.id.searchbar);
-        submitButton = findViewById(R.id.submitbutton);
+        submitButton = findViewById(R.id.submitbuton);
         rentBtn = findViewById(R.id.rentbtn);
-        requestBtn = findViewById(R.id.requestbtn);
-        name1 = findViewById(R.id.name);
-        department =findViewById(R.id.department);
+
+        studentname = findViewById(R.id.name);
+        department =findViewById(R.id.accesslevel);
+        stuId = findViewById(R.id.stuId);
         signOut =findViewById(R.id.signout);
         ref = FirebaseDatabase.getInstance().getReference("Books");
         auth = FirebaseAuth.getInstance();
-        user = auth.getCurrentUser();
-if (user!=null){
 
-    String userId = user.getUid();
-    FirebaseDatabase ref;
 
-}
-
-/*
-        if (user!=null){
-
-           final   String userUid = user.getUid();
-        //
-
-             final DatabaseReference ref ;
-            ref = FirebaseDatabase.getInstance().getReference("User");
-            ref.addListenerForSingleValueEvent(new ValueEventListener() {
+        if (auth.getCurrentUser()!=null) {
+            firebaseUser = auth.getCurrentUser();
+            final String uid = firebaseUser.getUid();
+            DatabaseReference profile;
+            profile = FirebaseDatabase.getInstance().getReference("User");
+            profile.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.hasChild(userUid)){
-                        User userr = dataSnapshot.child(userUid).getValue(User.class);
+                    if (dataSnapshot.hasChild(uid)) {
+                        User user = dataSnapshot.child(uid).getValue(User.class);
 
-                        if (userr!= null){
-                            name1.setText(userr.getName());
+
+                        if (user!=null) {
+
+                            department.setText(user.getAcesslevel());
+                            stuId.setText(String.valueOf(user.getId()));
+                            studentname.setText(user.getStuname());
+                            sid = String.valueOf(user.getId());
                         }
                     }
-                }
 
+                }
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
 
                 }
             });
-            String userEmail = user.getEmail();
-
-             department.setText(userEmail);
-
-
-        }*/
+        }
 
 
     }
@@ -92,6 +82,7 @@ if (user!=null){
     @Override
     protected void onStart() {
         super.onStart();
+
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,8 +97,10 @@ if (user!=null){
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if(dataSnapshot.hasChild(search)){
+
                                 Intent intent = new Intent(StudentActivity.this, BookDetailsActivity.class);
-                                intent.putExtra("book", search);
+                                intent.putExtra("book",  search);
+                                intent.putExtra("s", sid);
                                 startActivity(intent);
                             }else {
                                 Toast.makeText(StudentActivity.this, "THIS BOOK IS NOT AVAILABLE", Toast.LENGTH_SHORT).show();
@@ -129,16 +122,13 @@ if (user!=null){
         rentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(StudentActivity.this , RentedActivity.class));
+                Intent intent = new Intent(StudentActivity.this , RentedActivity.class);
+                intent.putExtra("studentid",sid );
+                startActivity(intent);
             }
         });
 
-        requestBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(StudentActivity.this , RequestActivity.class));
-            }
-        });
+
 
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,7 +24,8 @@ import com.google.firebase.database.ValueEventListener;
 public class RentedActivity extends AppCompatActivity {
     RecyclerView recyclerView ;
     RecyclerView.LayoutManager  layoutManager;
-    DatabaseReference reference;
+    DatabaseReference reference , ref;
+    String stuid;
     FirebaseRecyclerOptions<String> options;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +36,15 @@ public class RentedActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        reference = FirebaseDatabase.getInstance().getReference("Rent").child("16500214006");
+
+        stuid = getIntent().getStringExtra("studentid");
+
+        reference = FirebaseDatabase.getInstance().getReference("Rent").child(stuid);
+        ref = FirebaseDatabase.getInstance().getReference("User");
+
+
+
+
 
 
 

@@ -41,7 +41,8 @@
         android:layout_marginBottom="159dp"
         android:layout_marginStart="37dp"
         android:background="@drawable/library_id_field_background"
-        android:hint="@string/enter_book_name"
+        android:hint="       Enter ISBN Here"
+        android:inputType="number"
         android:paddingEnd="8dp"
         android:paddingStart="16dp" />
 
@@ -51,7 +52,7 @@
         android:layout_height="50dp"
         android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/searchid_field"
-        android:layout_marginEnd="45dp"
+        android:layout_marginEnd="39dp"
         android:background="@mipmap/circle_tick_button"
         android:contentDescription="@string/tick_button_alt" />
 

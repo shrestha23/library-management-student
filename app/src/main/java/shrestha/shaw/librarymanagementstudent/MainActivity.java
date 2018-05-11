@@ -24,7 +24,7 @@ import java.util.Iterator;
 public class MainActivity extends AppCompatActivity {
     EditText search;
     ImageButton submitButton;
-    private DatabaseReference bookref;
+    private DatabaseReference bookref , titleref;
     private String searchedBook;
     TextView loginLink;
     FirebaseAuth auth;
@@ -38,10 +38,12 @@ public class MainActivity extends AppCompatActivity {
         search  = findViewById(R.id.searchid_field);
         loginLink = findViewById(R.id.loginlink);
         bookref  = FirebaseDatabase.getInstance().getReference("Books");
+        titleref = FirebaseDatabase.getInstance().getReference("Title");
 
         auth = FirebaseAuth.getInstance();
         if (auth.getCurrentUser() != null) {
-            startActivity(new Intent(MainActivity.this, SignInActivity.class));
+            startActivity(new Intent(MainActivity.this, StudentActivity.class));
+            finish();
         }
     }
 
@@ -63,7 +65,25 @@ public class MainActivity extends AppCompatActivity {
                                 Intent intent1 = new Intent(MainActivity.this, BookDetailsActivity.class);
                                 intent1.putExtra("book", searchedBook);
                                 startActivity(intent1);
-                            } else {
+                            } else if (!searchedBook.isEmpty()){
+                                titleref.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        if (dataSnapshot.hasChild(searchedBook)){
+                                            Intent intent1 = new Intent(MainActivity.this, BookDetailsActivity.class);
+                                            intent1.putExtra("book", searchedBook);
+                                            startActivity(intent1);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+
+                            }
+                            else {
                                 Toast.makeText(MainActivity.this, "THIS BOOK IS NOT AVAILABLE", Toast.LENGTH_SHORT).show();
                             }
                         }
